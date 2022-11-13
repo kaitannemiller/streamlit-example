@@ -8,5 +8,4 @@ statsmodels
 sklearn
 geopandas
 pydeck
-pydeck.types
-click==0.7
+
