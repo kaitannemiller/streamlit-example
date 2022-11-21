@@ -462,13 +462,13 @@ with output_container.container():
             TS_W12 = pd.read_csv("TS_Prediction_W_1_2.csv")
             TS_W12 = pd.DataFrame(TS_W12)
             TS_W12['Locale'] = 'Wards 1 & 2'
-            TS_W34 = pd.read_csv('TS_Prediction_W_3_4.CSV')
+            TS_W34 = pd.read_csv("TS_Prediction_W_3_4.csv")
             TS_W34 = pd.DataFrame(TS_W34)
             TS_W34['Locale'] = 'Wards 3 & 4'
-            TS_W56 = pd.read_csv('TS_Prediction_W_5_6.CSV')
+            TS_W56 = pd.read_csv("TS_Prediction_W_5_6.csv")
             TS_W56 = pd.DataFrame(TS_W56)
             TS_W56['Locale'] = 'Wards 5 & 6'
-            TS_W78 = pd.read_csv('TS_Prediction_W_7_8.CSV')
+            TS_W78 = pd.read_csv("TS_Prediction_W_7_8.csv")
             TS_W78 = pd.DataFrame(TS_W78)
             TS_W78['Locale'] = 'Wards 7 & 8'
 
