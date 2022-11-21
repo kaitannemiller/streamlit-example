@@ -456,41 +456,71 @@ with output_container.container():
         ### Time series container
         time_container = st.empty()
         with time_container.container():
+            TS = pd.read_csv('C:\\Users\\Kaitlin\\OneDrive\\School\\Fall 2022\\TS_Prediction_Full.CSV')
+            TS = pd.DataFrame(TS)
+            TS['Locale'] = 'Full Region'
+            TS_W12 = pd.read_csv('C:\\Users\\Kaitlin\\OneDrive\\School\\Fall 2022\\TS_Prediction_W_1_2.CSV')
+            TS_W12 = pd.DataFrame(TS_W12)
+            TS_W12['Locale'] = 'Wards 1 & 2'
+            TS_W34 = pd.read_csv('C:\\Users\\Kaitlin\\OneDrive\\School\\Fall 2022\\TS_Prediction_W_3_4.CSV')
+            TS_W34 = pd.DataFrame(TS_W34)
+            TS_W34['Locale'] = 'Wards 3 & 4'
+            TS_W56 = pd.read_csv('C:\\Users\\Kaitlin\\OneDrive\\School\\Fall 2022\\TS_Prediction_W_5_6.CSV')
+            TS_W56 = pd.DataFrame(TS_W56)
+            TS_W56['Locale'] = 'Wards 5 & 6'
+            TS_W78 = pd.read_csv('C:\\Users\\Kaitlin\\OneDrive\\School\\Fall 2022\\TS_Prediction_W_7_8.CSV')
+            TS_W78 = pd.DataFrame(TS_W78)
+            TS_W78['Locale'] = 'Wards 7 & 8'
+
+            frames = [TS, TS_W12, TS_W34, TS_W56, TS_W78]
+            TS_Total = pd.concat(frames)
+
             #input drop down for ward or all
             if st.session_state["ChosenWard"] == "Ward 0":
-                time_title = "Average DC Property Sale Price Over Time for All Wards"
+                time_title = "Average Sale Price Over Time for All Properties Across All Wards"
+                selected_locale = "Full Region"
+                selected_date = "2022-11"
                 file_ = open("1_Full Region Time Series Plot.png", "rb")
                 contents = file_.read()
                 time_image = base64.b64encode(contents).decode("utf-8")
                 file_.close()
             elif st.session_state["ChosenWard"] == "Ward 1" or st.session_state["ChosenWard"] == "Ward 2":
-                time_title = "Average DC Property Sale Price Over Time for Wards 1 & 2"
+                time_title = "Average Sale Price Over Time for All Properties Across Wards 1 & 2"
+                selected_locale = "Wards 1 & 2"
                 file_ = open("1_Wards 1_2 Time Series Plot.png", "rb")
                 contents = file_.read()
                 time_image = base64.b64encode(contents).decode("utf-8")
                 file_.close()
             elif st.session_state["ChosenWard"] == "Ward 3" or st.session_state["ChosenWard"] == "Ward 4":
-                time_title = "Average DC Property Sale Price Over Time for Wards 3 & 4"
+                time_title = "Average Sale Price Over Time for All Properties Across Wards 3 & 4"
+                selected_locale = "Wards 3 & 4"
                 file_ = open("1_Wards 3_4 Time Series Plot.png", "rb")
                 contents = file_.read()
                 time_image = base64.b64encode(contents).decode("utf-8")
                 file_.close()
             elif st.session_state["ChosenWard"] == "Ward 5" or st.session_state["ChosenWard"] == "Ward 6":
-                time_title = "Average DC Property Sale Price Over Time for Wards 5 & 6"
+                time_title = "Average Sale Price Over Time for All Properties Across Wards 5 & 6"
+                selected_locale = "Wards 5 & 6"
                 file_ = open("1_Wards 5_6 Time Series Plot.png", "rb")
                 contents = file_.read()
                 time_image = base64.b64encode(contents).decode("utf-8")
                 file_.close()
             elif st.session_state["ChosenWard"] == "Ward 7" or st.session_state["ChosenWard"] == "Ward 8":
-                time_title = "Average DC Property Sale Price Over Time for Wards 7 & 8"
+                time_title = "Average Sale Price Over Time for All Properties Across Wards 7 & 8"
+                selected_locale = "Wards 7 & 8"
                 file_ = open("1_Wards 7_8 Time Series Plot.png", "rb")
                 contents = file_.read()
                 time_image = base64.b64encode(contents).decode("utf-8")
                 file_.close()
 
+
             st.write(time_title)
+            selected_date = st.selectbox('Pick a future date for prediction', TS_Total.Date.drop_duplicates(), 3)
+            selected_date_price = TS_Total.loc[(TS_Total["Locale"] == selected_locale) & (TS_Total["Date"] == selected_date), 'Average Home Sale Price'].iloc[0]
+            selected_date_price = "{:,}".format(abs(int(round(selected_date_price, 0))))
+            st.write(f'Average Home Price: ${selected_date_price}')
             st.markdown(f"""
-            <img src="data:image/gif;base64,{time_image}" alt="line" style="height: 100%; width: 100%; margin-bottom: 5%;">
+            <img src="data:image/gif;base64,{time_image}" alt="line" style="height: 70%; width: 70%; margin-bottom: 5%; margin-left: 15%; margin-right: 15%;">
             """, unsafe_allow_html=True)
 
 
@@ -587,33 +617,38 @@ if predict_button:
     ward_color = "green"
     ward_change = "increase"
     ward_change_amt = 0.3048
-    if input_ward == "Ward 1":
+    if input_zipcode != "":
+        zipdict = pd.read_csv("ZipcodeWardLookup.csv")
+        new_ward = zipdict[zipdict["Zipcode"] == int(input_zipcode)]["Ward"].tolist()[0].strip()
+    else:
+        new_ward = input_ward
+    if new_ward == "Ward 1":
         ward1 = 1
-    elif input_ward == "Ward 2":
+    elif new_ward == "Ward 2":
         ward2 = 1
         ward_color = "red"
         ward_change = "decrease"
         ward_change_amt = -0.0084
-    elif input_ward == "Ward 3":
+    elif new_ward == "Ward 3":
         ward3 = 1
         ward_color = "green"
         ward_change = "increase"
         ward_change_amt = 0.0084
-    elif input_ward == "Ward 4":
+    elif new_ward == "Ward 4":
         ward4 = 1
-    elif input_ward == "Ward 5":
+    elif new_ward == "Ward 5":
         ward5 = 1
         ward_color = "green"
         ward_change = "increase"
         ward_change_amt = 0.5603
-    elif input_ward == "Ward 6":
+    elif new_ward == "Ward 6":
         ward6 = 1
-    elif input_ward == "Ward 7":
+    elif new_ward == "Ward 7":
         ward7 = 1
         ward_color = "green"
         ward_change = "increase"
         ward_change_amt = 0.7745
-    elif input_ward == "Ward 8":
+    elif new_ward == "Ward 8":
         ward8 = 1
         ward_color = "green"
         ward_change = "increase"
@@ -634,11 +669,11 @@ if predict_button:
         X_rooms_OLS_train_log = sm.add_constant(X_rooms_train)
         model_OLS_ygba_log = sm.OLS(y_gba_train_log, X_rooms_OLS_train_log)
         result_OLS_ygba_log = model_OLS_ygba_log.fit()
-        print(result_OLS_ygba_log.summary())
         gba = int(np.exp(result_OLS_ygba_log.predict(np.array([1,numrooms]).reshape(1, -1))))
-        print(result_OLS_ygba_log.predict(np.array([1,numrooms]).reshape(1, -1)))
     else:
         gba = int(input_gba)
+
+
 
     y_train = pd.read_csv("y_train.csv")
     #print(y_train.head())
@@ -714,7 +749,7 @@ if predict_button:
             w7=1
         elif w == 8:
             w8=1
-        tempward = result_OLS_ytrans2.predict(np.array([1,hf_bathrm,sale_num,collected[0][10],collected[0][8],collected[0][9],collected[0][5],collected[0][6],struct7,grade3,grade4,grade5,grade6,cndtn3,cndtn4,cndtn5,intwall6,w2,w3,w5,w6,w8]).reshape(1, -1))
+        tempward = result_OLS_ytrans2.predict(np.array([1,hf_bathrm,sale_num,collected[0][10],collected[0][8],collected[0][9],collected[0][5],collected[0][6],struct7,grade3,grade4,grade5,grade6,cndtn3,cndtn4,cndtn5,intwall6,w2,w3,w5,w7,w8]).reshape(1, -1))
         tempward = power.inverse_transform(np.array(tempward).reshape(1, -1))[0][0]
         estimate_ward.append("{:,}".format(int(round(tempward, 0))))
 
@@ -732,6 +767,6 @@ if predict_button:
     st.session_state["est_ward7"] = "$" + estimate_ward[6]
     st.session_state["est_ward8"] = "$" + estimate_ward[7]
     st.session_state["bestft_list"] = bestft_list
-    st.session_state["ChosenWard"] = input_ward
+    st.session_state["ChosenWard"] = new_ward
     st.session_state["openclose"] = openclose
     st.experimental_rerun()
