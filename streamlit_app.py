@@ -456,10 +456,10 @@ with output_container.container():
         ### Time series container
         time_container = st.empty()
         with time_container.container():
-            TS = pd.read_csv('TS_Prediction_Full.CSV')
+            TS = pd.read_csv("TS_Prediction_Full.csv")
             TS = pd.DataFrame(TS)
             TS['Locale'] = 'Full Region'
-            TS_W12 = pd.read_csv('TS_Prediction_W_1_2.CSV')
+            TS_W12 = pd.read_csv("TS_Prediction_W_1_2.csv")
             TS_W12 = pd.DataFrame(TS_W12)
             TS_W12['Locale'] = 'Wards 1 & 2'
             TS_W34 = pd.read_csv('TS_Prediction_W_3_4.CSV')
