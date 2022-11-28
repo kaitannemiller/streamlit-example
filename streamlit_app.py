@@ -39,6 +39,7 @@ style ="""
         }
     </style>
     <style>
+        #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > ul > li > div > div > div > div > div > div > div > div > div > div > div > div > div > div > p,
         #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > .streamlit-expander > li > .streamlit-expanderHeader > div > p {
             font-size: 24px;
             font-weight: 700;
