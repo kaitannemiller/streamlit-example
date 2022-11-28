@@ -46,6 +46,7 @@ style ="""
     </style>
     <!-- Move down the feature selection area -->
     <style>
+        #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > ul > li > div > div.streamlit-expanderContent > div,
         #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > ul > li > div.streamlit-expanderContent > div {
             margin-top: 15px;
         }
