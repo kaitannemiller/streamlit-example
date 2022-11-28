@@ -10,6 +10,7 @@ import pydeck
 from pydeck.types import String
 import geopandas
 import statsmodels.api as sm
+from fuzzywuzzy import fuzz, process
 
 ### Best practices I've found so far:
     # Use an empty container first so you can blank it out if you need to later
@@ -245,6 +246,51 @@ with feature_container.container():
         st.session_state["openclose"] = True
     else:
         openclose = st.session_state["openclose"]
+
+    if 'lookup_message' not in st.session_state:
+        lookup_message = ""
+        fillin_squarefootage = ""
+        fillin_zipcode = ""
+        fillin_halfbath = ""
+        fillin_timessold = ""
+        fillin_yearbuilt = ""
+        fillin_lastremodel = ""
+        fillin_fireplaces = ""
+        fillin_landarea = ""
+        fillin_intwall = ""
+        fillin_struct = ""
+        fillin_cond = ""
+        fillin_grade = ""
+        st.session_state["lookup_message"] = lookup_message
+        st.session_state["fillin_squarefootage"] = lookup_message
+        st.session_state["fillin_zipcode"] = lookup_message
+        st.session_state["fillin_halfbath"] = lookup_message
+        st.session_state["fillin_timessold"] = lookup_message
+        st.session_state["fillin_yearbuilt"] = lookup_message
+        st.session_state["fillin_lastremodel"] = lookup_message
+        st.session_state["fillin_fireplaces"] = lookup_message
+        st.session_state["fillin_landarea"] = lookup_message
+        st.session_state["fillin_intwall"] = lookup_message
+        st.session_state["fillin_struct"] = lookup_message
+        st.session_state["fillin_cond"] = lookup_message
+        st.session_state["fillin_grade"] = lookup_message
+    else:
+        lookup_message = st.session_state["lookup_message"]
+        fillin_squarefootage = st.session_state["fillin_squarefootage"]
+        fillin_zipcode = st.session_state["fillin_zipcode"]
+        fillin_halfbath = st.session_state["fillin_halfbath"]
+        fillin_timessold = st.session_state["fillin_timessold"]
+        fillin_yearbuilt = st.session_state["fillin_yearbuilt"]
+        fillin_lastremodel = st.session_state["fillin_lastremodel"]
+        fillin_fireplaces = st.session_state["fillin_fireplaces"]
+        fillin_landarea = st.session_state["fillin_landarea"]
+        fillin_intwall = st.session_state["fillin_intwall"]
+        fillin_struct = st.session_state["fillin_struct"]
+        fillin_cond = st.session_state["fillin_cond"]
+        fillin_grade = st.session_state["fillin_grade"]
+
+    feature_fillins = [fillin_halfbath,fillin_timessold,fillin_yearbuilt,fillin_lastremodel,fillin_fireplaces,fillin_landarea,fillin_intwall,fillin_struct,fillin_cond,fillin_grade]
+
     my_expander = st.expander("Input your Home's Features", openclose)
     featureselect_container = my_expander.empty()
     with featureselect_container.container():
@@ -259,6 +305,7 @@ with feature_container.container():
                     input_address = st.text_input("Street Address: ", )
                     input_addresszip = st.text_input("Zip Code: ", )
                 address_button = st.form_submit_button("Fill in Address Features")
+                st.write(lookup_message)
         #Square Footage container
         feature_form = st.empty()
         with feature_form.form("feature_form"):
@@ -269,7 +316,7 @@ with feature_container.container():
                 with sizeint_container.container():
                     sizeint2_container = st.container()
                     with sizeint2_container:
-                        input_gba = st.text_input("Square Footage: ", )
+                        input_gba = st.text_input("Square Footage: ", fillin_squarefootage)
                         st.write("OR")
                         input_rooms = st.selectbox("Number of Rooms: ", ["0","1","2","3","4","5","6","7","8 or more"], key="room_select")
             #Location container
@@ -282,7 +329,7 @@ with feature_container.container():
                     with locationint2_container:
                         input_ward = st.selectbox("Ward: ", ["Ward 1","Ward 2","Ward 3","Ward 4","Ward 5","Ward 6","Ward 7","Ward 8"], key="ward_select")
                         st.write("OR")
-                        input_zipcode = st.text_input("Zip Code: ", )
+                        input_zipcode = st.text_input("Zip Code: ", fillin_zipcode)
             #Other required features container
             other_container = st.empty()
             with other_container.container():
@@ -293,14 +340,22 @@ with feature_container.container():
                     temp_container = st.empty()
                     with temp_container.container():
                         if feature_types[f] == 'dropdown':
-                            features_inputs.append(st.selectbox(features[f]+":", feature_options[f], key='feat'+str(f)))
+                            if len([i for i,n in enumerate(feature_options[f]) if str(n) == str(feature_fillins[f])]) > 0:
+                                temp_input = [i for i,n in enumerate(feature_options[f]) if str(n) == str(feature_fillins[f])][0]
+                            else:
+                                temp_input = 0
+                            features_inputs.append(st.selectbox(features[f]+":", feature_options[f], key='feat'+str(f), index=temp_input))
                         elif feature_types[f] == 'input':
-                            features_inputs.append(st.text_input(features[f]+":", ))
+                            features_inputs.append(st.text_input(features[f]+":", feature_fillins[f]))
                         if f < len(features)-1:
                             if feature_types[f+1] == 'dropdown':
-                                features_inputs.append(st.selectbox(features[f+1]+":", feature_options[f+1], key='feat'+str(f+1)))
+                                if len([i for i,n in enumerate(feature_options[f+1]) if str(n) == str(feature_fillins[f+1])]) > 0:
+                                    temp_input = [i for i,n in enumerate(feature_options[f+1]) if str(n) == str(feature_fillins[f+1])][0]
+                                else:
+                                    temp_input = 0
+                                features_inputs.append(st.selectbox(features[f+1]+":", feature_options[f+1], key='feat'+str(f+1), index=temp_input))
                             elif feature_types[f+1] == 'input':
-                                features_inputs.append(st.text_input(features[f+1]+":", ))
+                                features_inputs.append(st.text_input(features[f+1]+":", feature_fillins[f+1]))
                     f = f + 2
             gobutton_container = st.empty()
             with gobutton_container.container():
@@ -515,13 +570,73 @@ with output_container.container():
 
 
             st.write(time_title)
-            selected_date = st.selectbox('Pick a future date for prediction', TS_Total.Date.drop_duplicates(), 3)
+            selected_date = st.selectbox('Pick a future date for prediction', TS_Total.Date.drop_duplicates(), 4)
             selected_date_price = TS_Total.loc[(TS_Total["Locale"] == selected_locale) & (TS_Total["Date"] == selected_date), 'Average Home Sale Price'].iloc[0]
             selected_date_price = "{:,}".format(abs(int(round(selected_date_price, 0))))
             st.write(f'Average Home Price: ${selected_date_price}')
             st.markdown(f"""
             <img src="data:image/gif;base64,{time_image}" alt="line" style="height: 70%; width: 70%; margin-bottom: 5%; margin-left: 15%; margin-right: 15%;">
             """, unsafe_allow_html=True)
+
+
+
+if address_button:
+    add_features = pd.read_csv("ResidentialSalesWithAddress_Small.csv")
+    if input_addresszip == "":
+        lookup_message = "Error: Please input zip code."
+        st.session_state["lookup_message"] = lookup_message
+    elif len(add_features[add_features["ZIPCODE"] == int(input_addresszip)]) > 0:
+        #print(process.extractOne(input_address, add_features[add_features["ZIPCODE"] == int(input_addresszip)]["FULLADDRESS"].tolist()))
+        found_address = str(process.extractOne(input_address, add_features[add_features["ZIPCODE"] == int(input_addresszip)]["FULLADDRESS"])[0])
+        lookup_message = found_address
+        st.session_state["lookup_message"] = "Found:  " + lookup_message + ", WASHINGTON, DC " + str(input_addresszip)
+        st.session_state["fillin_squarefootage"] = add_features[(add_features["ZIPCODE"] == int(input_addresszip)) & (add_features["FULLADDRESS"] == found_address)]["GBA"].tolist()[0]
+        st.session_state["fillin_zipcode"] = input_addresszip
+        st.session_state["fillin_halfbath"] = int(add_features[(add_features["ZIPCODE"] == int(input_addresszip)) & (add_features["FULLADDRESS"] == found_address)]["HF_BATHRM"].tolist()[0])
+        st.session_state["fillin_timessold"] = int(add_features[(add_features["ZIPCODE"] == int(input_addresszip)) & (add_features["FULLADDRESS"] == found_address)]["SALE_NUM"].tolist()[0])-1
+        st.session_state["fillin_yearbuilt"] = int(add_features[(add_features["ZIPCODE"] == int(input_addresszip)) & (add_features["FULLADDRESS"] == found_address)]["AYB"].tolist()[0])
+        st.session_state["fillin_lastremodel"] = str(add_features[(add_features["ZIPCODE"] == int(input_addresszip)) & (add_features["FULLADDRESS"] == found_address)]["YR_RMDL"].tolist()[0])
+        if st.session_state["fillin_lastremodel"] == "nan":
+            st.session_state["fillin_lastremodel"] = ""
+        else:
+            st.session_state["fillin_lastremodel"] = int(add_features[(add_features["ZIPCODE"] == int(input_addresszip)) & (add_features["FULLADDRESS"] == found_address)]["YR_RMDL"].tolist()[0])
+        st.session_state["fillin_fireplaces"] = int(add_features[(add_features["ZIPCODE"] == int(input_addresszip)) & (add_features["FULLADDRESS"] == found_address)]["FIREPLACES"].tolist()[0])
+        st.session_state["fillin_landarea"] = add_features[(add_features["ZIPCODE"] == int(input_addresszip)) & (add_features["FULLADDRESS"] == found_address)]["LANDAREA"].tolist()[0]
+        st.session_state["fillin_intwall"] = int(add_features[(add_features["ZIPCODE"] == int(input_addresszip)) & (add_features["FULLADDRESS"] == found_address)]["INTWALL"].tolist()[0])
+        if st.session_state["fillin_intwall"] == 6:
+            st.session_state["fillin_intwall"] = "Hardwood"
+        else:
+            st.session_state["fillin_intwall"] = "Other"
+        st.session_state["fillin_struct"] = int(add_features[(add_features["ZIPCODE"] == int(input_addresszip)) & (add_features["FULLADDRESS"] == found_address)]["STRUCT"].tolist()[0])
+        if st.session_state["fillin_struct"] == 7:
+            st.session_state["fillin_struct"] = "Internal Apartment (Not an End Unit)"
+        else:
+            st.session_state["fillin_struct"] = "Other"
+        st.session_state["fillin_cond"] = int(add_features[(add_features["ZIPCODE"] == int(input_addresszip)) & (add_features["FULLADDRESS"] == found_address)]["CNDTN"].tolist()[0])
+        if st.session_state["fillin_cond"] == 3:
+            st.session_state["fillin_cond"] = "Average"
+        elif st.session_state["fillin_cond"] == 4:
+            st.session_state["fillin_cond"] = "Good"
+        elif st.session_state["fillin_cond"] == 4:
+            st.session_state["fillin_cond"] = "Very Good"
+        else:
+            st.session_state["fillin_cond"] = "Other"
+        st.session_state["fillin_grade"] = int(add_features[(add_features["ZIPCODE"] == int(input_addresszip)) & (add_features["FULLADDRESS"] == found_address)]["GRADE"].tolist()[0])
+        if st.session_state["fillin_grade"] == 3:
+            st.session_state["fillin_grade"] = "Average"
+        elif st.session_state["fillin_grade"] == 4:
+            st.session_state["fillin_grade"] = "Above Average"
+        elif st.session_state["fillin_grade"] == 4:
+            st.session_state["fillin_grade"] = "Good Quality"
+        elif st.session_state["fillin_grade"] == 4:
+            st.session_state["fillin_grade"] = "Very Good"
+        else:
+            st.session_state["fillin_grade"] = "Excellent"
+    else:
+        lookup_message = "Error: No matching address found."
+        st.session_state["lookup_message"] = lookup_message
+
+    st.experimental_rerun()
 
 
 if predict_button:
@@ -531,9 +646,9 @@ if predict_button:
     else:
         hf_bathrm = int(features_inputs[0])
     if features_inputs[1] == "8 or more":
-        sale_num = 8
+        sale_num = 8+1
     else:
-        sale_num = int(features_inputs[1])
+        sale_num = int(features_inputs[1])+1
     if features_inputs[4] == "5 or more":
         fireplaces = 8
     else:
@@ -656,7 +771,10 @@ if predict_button:
 
     landarea = int(features_inputs[5])
     built = 2022-int(features_inputs[2])
-    last_remodel = 2022-int(features_inputs[3])
+    if features_inputs[3] == "":
+        last_remodel = 2022-int(features_inputs[2])
+    else:
+        last_remodel = 2022-int(features_inputs[3])
 
     if input_gba == "":
         if input_rooms == "8 or more":
