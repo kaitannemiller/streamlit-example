@@ -194,6 +194,8 @@ style ="""
         #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > ul > li > div.streamlit-expanderContent > div > div > div > div > div.epcbefy1:nth-child(2) > div > div > div > div {
             width: 100% !important;
         }
+        #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > ul > li > div > div > div > div > div > div > div > div,
+        #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > ul > li > div > div > div > div > div > div > div > div > div,
         #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > ul > li > div > div > div > div > div > div > div > div > div > div,
         #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > ul > li > div > div > div > div > div > div > div > div > div > div > div > div,
         #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > ul > li > div > div > div > div > div > div > div > div > div > div > div > div > div,
