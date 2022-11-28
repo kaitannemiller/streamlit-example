@@ -39,7 +39,6 @@ style ="""
         }
     </style>
     <style>
-        #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > ul > li > div > div > div > div > div > div > div > div > div > div > div > div > div > div > p,
         #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > .streamlit-expander > li > .streamlit-expanderHeader > div > p {
             font-size: 24px;
             font-weight: 700;
@@ -180,6 +179,7 @@ style ="""
     </style>
     <!-- makeing the internal feature sub section headers bigger and bolder -->
     <style>
+        #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > ul > li > div > div > div > div > div > div > div > div > div > div > div > div > div > div > p,
         #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > ul > li > div.streamlit-expanderContent > div > div > div > div > div > div > div > div > div > div > div > div > div.e1tzin5v0 > div > p,
         #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > ul > li > div.streamlit-expanderContent > div > div > div > div > div > div > div > div > div > div > div > div > p {
             font-weight: 700;
@@ -194,6 +194,7 @@ style ="""
         #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > ul > li > div.streamlit-expanderContent > div > div > div > div > div.epcbefy1:nth-child(2) > div > div > div > div {
             width: 100% !important;
         }
+        #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > ul > li > div > div > div > div > div > div > div > div > div > div > div > div > div,
         #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > ul > li > div.streamlit-expanderContent > div > div > div > div > div.epcbefy1:nth-child(2) > div > div > div > div > div ,
         #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > ul > li > div.streamlit-expanderContent > div > div > div > div > div.epcbefy1:nth-child(2) > div > div > div > div > div > div ,
         #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > ul > li > div.streamlit-expanderContent > div > div > div > div > div.epcbefy1:nth-child(2) > div > div > div > div > div > div > div,
