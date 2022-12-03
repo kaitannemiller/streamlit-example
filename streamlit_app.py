@@ -248,6 +248,13 @@ style ="""
             max-width: max-content;
         }
     </style>
+    <!-- increase button size -->
+    <style>
+        button {
+            font-size: 20px;
+            font-weight: 600;
+        }
+    </style>
 
 """
 st.markdown(style, unsafe_allow_html=True)
