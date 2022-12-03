@@ -62,6 +62,7 @@ style ="""
     </style>
     <!-- remove the margin on the label for the drop downs -->
     <style>
+        #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > ul > li > div > div.streamlit-expanderContent > div > div > div > div > div > div > div > div,
         #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > ul > li > div.streamlit-expanderContent > div > div > div > div > div > div > div > div {
             margin: 0px;
             width: 100% !important;
