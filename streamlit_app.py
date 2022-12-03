@@ -151,7 +151,7 @@ style ="""
     </style>
     <!-- making the address lookup input fill in on one line each and padding -->
     <style>
-        #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > ul > li > div > div.streamlit-expanderContent > div > div > div > div > div.epcbefy1:nth-child(1) > div,
+        #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > ul > li > div > div.streamlit-expanderContent > div > div > div > div > div.epcbefy1:nth-child(1) > div > div,
         #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > ul > li > div.streamlit-expanderContent > div > div > div > div > div.epcbefy1:nth-child(1),
         #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > ul > li > div.streamlit-expanderContent > div > div > div > div > div.epcbefy1:nth-child(1) > div,
         #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > ul > li > div.streamlit-expanderContent > div > div > div > div > div.epcbefy1:nth-child(1) > div > div,
