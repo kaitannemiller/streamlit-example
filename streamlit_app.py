@@ -252,7 +252,7 @@ style ="""
     <style>
         button {
             font-size: 20px;
-            font-weight: 600;
+            font-weight: 500 !important;
         }
     </style>
 
