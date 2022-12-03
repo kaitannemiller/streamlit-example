@@ -174,6 +174,7 @@ style ="""
     <!-- make all the feature descriptions span the entire width and not wrap -->
     <style>
         #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > ul > li > div.streamlit-expanderContent > div > div > div > div > div > div > div > div > div > div > div > div > div.e1tzin5v0 > div > div > label,
+        #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > ul > li > div > div.streamlit-expanderContent > div > div > div > div > div > div > div > div > div > div > div > div > div.e1tzin5v0 > div > div > label > div > p,
         #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > ul > li > div.streamlit-expanderContent > div > div > div > div > div > div > div > div > div > div > div > div > div > label,
         #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > ul > li > div > div.streamlit-expanderContent > div > div > div > div > div > div > div > div > div > div > div > div > div > label > div > p {
             min-width: max-content;
