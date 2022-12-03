@@ -225,14 +225,16 @@ style ="""
     </style>
     <!-- making the "OR" sections in the size and location sections stay fitted -->
     <style>
-        #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > ul > li > div.streamlit-expanderContent > div > div > div > div > div.epcbefy1:nth-child(2) > div > div > div > div > div > div > div > div.e1tzin5v0 > div:nth-child(2) > div > div {
+        #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > ul > li > div.streamlit-expanderContent > div > div > div > div > div.epcbefy1:nth-child(2) > div > div > div > div > div > div > div > div.e1tzin5v0 > div:nth-child(2) > div > div ,
+        #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > ul > li > div > div.streamlit-expanderContent > div > div > div > div > div.epcbefy1:nth-child(2) > div > div > div > div > div > div > div > div.e1tzin5v0 > div:nth-child(2) > div > div {
             margin: 0px 0px 0px;
             align-items: center;
             justify-content: center;
             vertical-align: middle;
             display: flex;
         }
-        #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > ul > li > div.streamlit-expanderContent > div > div > div > div > div.epcbefy1:nth-child(2) > div > div > div > div > div > div > div > div.e1tzin5v0 > div:nth-child(2) > div > div > p {
+        #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > ul > li > div.streamlit-expanderContent > div > div > div > div > div.epcbefy1:nth-child(2) > div > div > div > div > div > div > div > div.e1tzin5v0 > div:nth-child(2) > div > div > p,
+        #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > ul > li > div > div.streamlit-expanderContent > div > div > div > div > div.epcbefy1:nth-child(2) > div > div > div > div > div > div > div > div.e1tzin5v0 > div:nth-child(2) > div > div > p {
             margin: 0px 12px 0px;
             font-weight: 900;
             font-size: 20px;
@@ -240,7 +242,8 @@ style ="""
     </style>
     <!-- making the important features info fill in on one line each and padding -->
     <style>
-        #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > ul > li > div.streamlit-expanderContent > div > div > div > div > div.epcbefy1:nth-child(2) > div > div > div > div > div > div > div > div.e1tzin5v0 > div:nth-child(2) {
+        #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > ul > li > div.streamlit-expanderContent > div > div > div > div > div.epcbefy1:nth-child(2) > div > div > div > div > div > div > div > div.e1tzin5v0 > div:nth-child(2),
+        #root > div > div.withScreencast > div > div > div > section > div > div > div > div > div > div > ul > li > div > div.streamlit-expanderContent > div > div > div > div > div.epcbefy1:nth-child(2) > div > div > div > div > div > div > div > div.e1tzin5v0 > div:nth-child(2) {
             max-width: max-content;
         }
     </style>
