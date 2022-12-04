@@ -80,7 +80,6 @@ style ="""
     <style>
         .e1tzin5v0 {
             position: inherit !important;
-            width: inherit !important;
         }
     </style>
     <!-- changing fill direction and adding padding on top and bottom containers -->
