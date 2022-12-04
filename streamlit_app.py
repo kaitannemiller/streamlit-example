@@ -323,7 +323,7 @@ with feature_container.container():
 
     feature_fillins = [fillin_halfbath,fillin_timessold,fillin_yearbuilt,fillin_lastremodel,fillin_fireplaces,fillin_landarea,fillin_intwall,fillin_struct,fillin_cond,fillin_grade]
 
-    my_expander = st.expander("Input your Home's Features", openclose)
+    my_expander = st.expander("Input your Home's Features")
     featureselect_container = my_expander.empty()
     with featureselect_container.container():
         #Address lookup container
